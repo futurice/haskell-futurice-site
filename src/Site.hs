@@ -32,7 +32,7 @@ gpgKey = "5AC8 9B37 47FF 9612 810F  909E EB79 05A7 B8BB 0BA4"
 
 main :: IO ()
 main = shakeArgs shakeOptions $ do
-    want ["site/index.html"]
+    want ["site/index.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig"]
 
     "site/index.html" %> \out -> do
         need ["index.tmpl.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig"]
@@ -68,10 +68,11 @@ main = shakeArgs shakeOptions $ do
     "site/files/SHA256SUMS" %> \out -> do
         files <- getDirectoryFiles "artifacts" ["*"]
         let xzs = [ "site/files/" ++ f ++ ".xz" | f <- files ]
-        let sigs = [ "site/files/" ++ f ++ ".xz.sig" | f <- files ]
-        need (xzs ++ sigs)
+        need xzs
 
-        Stdout sums <- cmd ("sha256sum" : xzs ++ sigs)
+        let relativeXzs = [ "./" ++ f ++ ".xz" | f <- files ]
+
+        Stdout sums <- cmd ("sha256sum" : relativeXzs) (Cwd "site/files")
         liftIO $ LBS.writeFile out sums
 
 -------------------------------------------------------------------------------
