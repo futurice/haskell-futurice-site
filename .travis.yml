@@ -18,6 +18,7 @@ cache:
   directories:
     - $HOME/.cabal/packages
     - $HOME/.cabal/store
+    - $HOME/.ghc-install
 
 before_cache:
   - rm -fv $HOME/.cabal/packages/hackage.haskell.org/build-reports.log
@@ -33,12 +34,16 @@ matrix:
     - compiler: "ghc-8.2.1"
     # env: TEST=--disable-tests BENCH=--disable-benchmarks
       addons: {apt: {packages: [ghc-ppa-tools,cabal-install-head,ghc-8.2.1], sources: [hvr-ghc]}}
+    - compiler: "ghc-8.2.1"
+    # env: TEST=--disable-tests BENCH=--disable-benchmarks
+      os: osx
 
 before_install:
  - HC=${CC}
  - HCPKG=${HC/ghc/ghc-pkg}
  - unset CC
- - PATH=/opt/ghc/bin:/opt/ghc-ppa-tools/bin:$PATH
+ - sh scripts/install-on-osx.sh $HC
+ - PATH=/opt/ghc/bin:/opt/ghc-ppa-tools/bin:$HOME/.ghc-install/bin:$PATH
  - PKGNAME='haskell-futurice-site'
 
 install:
