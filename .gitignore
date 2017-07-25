@@ -1,0 +1,8 @@
+.env
+.shake/
+artifacts/
+site/
+venv/
+dist/
+dist-newstyle/
+.ghc.environment.*

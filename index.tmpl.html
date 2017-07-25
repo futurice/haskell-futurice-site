@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Futurice + Haskell</title>
+    </head>
+    <body>
+        <header>
+			<h1>Futurice + Haskell</h1>
+        </header>
+		<section>
+			<p>(Bleeding-edge) OSX builds for cabal-install.<p>
+
+			<h2>Nightly Cabal builds</h2>
+
+            <p>
+            <code>cabal</code> executables build from <a href="https://github.com/haskell/cabal"><code>master</code></a> branch.
+            Each file contains executable without <code>.xz</code> suffix.
+            </p>
+
+            <p>
+            The builds aren't triggered automatically. Ping me (<code>phadej</code> in various media) if you need recent build.
+            </p>
+
+			<ul>
+                {{#cabal}}
+                <li><a href="files/{{name}}"><code>{{name}}</code></a> ({{size}}, <a href="files/{{name}}.sig">sig</a>)</li>
+                {{/cabal}}
+			</ul>
+
+            <h2>Alex &amp; Happy</h2>
+
+            There are no <code>Happy</code> nor <code>alex</code> binaries provided.
+            <code>cabal new-build</code> is able to install them on need.
+
+            <h2>Signature</h2>
+            <p>
+                All files are signed using the key:
+            </p>
+<pre>
+pub   4096R/B8BB0BA4 2015-02-11 [expires: 2019-02-11]
+      Key fingerprint = 5AC8 9B37 47FF 9612 810F  909E EB79 05A7 B8BB 0BA4
+uid                  Oleg Grenrus <oleg.grenrus@iki.fi>
+uid                  [jpeg image of size 12002]
+sub   4096R/74B96F94 2015-02-11 [expires: 2019-02-11]
+</pre>
+
+            <p>There is also a <a href    = "files/SHA256SUMS"><code>SHA256SUMS</code></a> file,
+                    which is also <a href = "files/SHA256SUMS.sig">signed</a>.
+            </p>
+
+            <h2>Build environment</h2>
+
+<pre>
+$ uname -a
+Darwin ... 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29 17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64
+</pre>
+
+            <h2>Travis</h2>
+
+            TBD
+
+		</section>
+		<hr />
+		</section>
+			<p>
+				<a href="http://futurice.com">futurice</a> &ndash; company sponsoring this site and related work.
+			</p>
+		</section>
+    </body>
+</html>
