@@ -5,14 +5,18 @@ import Control.Monad.IO.Class (liftIO)
 import Data.Aeson (ToJSON (..), object, (.=))
 import Data.Foldable (traverse_)
 import Data.List (isPrefixOf, sortOn)
+import Data.Maybe (listToMaybe)
+import Data.Ord (Down (..))
 import Data.Traversable (for)
 import System.Directory (getFileSize)
 import System.IO (hPutStrLn, stderr)
 import Text.Printf (printf)
 
-import qualified Data.Text.Lazy.IO as LT
 import qualified Data.ByteString.Lazy as LBS
+import qualified Data.Text.Lazy.IO as LT
 import qualified Text.Microstache as M
+import qualified Text.Regex.Applicative as RE
+import qualified Text.Regex.Applicative.Common as RE
 
 import Development.Shake
 --import Development.Shake.Command
@@ -32,7 +36,7 @@ gpgKey = "5AC8 9B37 47FF 9612 810F  909E EB79 05A7 B8BB 0BA4"
 
 main :: IO ()
 main = shakeArgs shakeOptions $ do
-    want ["site/index.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig"]
+    want ["site/index.html", "site/error.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig"]
 
     "site/index.html" %> \out -> do
         need ["index.tmpl.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig"]
@@ -51,6 +55,12 @@ main = shakeArgs shakeOptions $ do
                 }
 
         liftIO $ indexHtml out files'
+
+    "site/error.html" %> \out -> do
+        let old = "error.html"
+        need [old]
+
+        copyFile' old out
 
     "site/files/*.xz" %> \out -> do
         let src = "artifacts" </> takeFileName out -<.> ""
@@ -88,11 +98,12 @@ putStrLnWarn s = hPutStrLn stderr ("WARN: " ++ s)
 
 indexHtml :: FilePath ->  [File] -> IO ()
 indexHtml out files = do
-    let files' = sortOn haName files
+    let cabalFiles = sortOn (Down . haStamp) $ filter ((Cabal ==) . haType) files
 
     -- template arguments
     let args = object
-            [ "cabal" .= filter ((Cabal ==) . haType) files'
+            [ "cabal" .= cabalFiles
+            , "examplecabal" .= maybe "" haName (listToMaybe cabalFiles)
             ]
 
     -- template
@@ -133,6 +144,11 @@ instance ToJSON File where
         , "type"     .= haType
         , "size"     .= humanSize (fromIntegral haSize)
         ]
+
+haStamp :: File -> Maybe String
+haStamp = RE.match regexp . haName where
+    regexp = "cabal-" RE.*> h RE.*> "-" RE.*> RE.many RE.anySym <* ".xz"
+    h = RE.hexadecimal :: RE.RE Char Int -- we don't care about the number
 
 humanSize :: Rational -> String
 humanSize = go ["", " kB", " MB", " GB"] where

@@ -1,6 +1,11 @@
 #!/bin/sh
 
-set -ex
+# Example:
+#
+# sh build-cabal-nightly.sh 4942b1f5841cc2a59c5c3eb1b59c90f65983dba8 $(expr $(date +%s) - 300) /tmp
+#
+
+set -e
 
 die() {
   echo "ERROR:" $*
@@ -35,7 +40,7 @@ cabal-2.0 update
 
 # Make temp directory
 BUILDDIR=$(mktemp -d /tmp/build-cabal-nightly.XXXXXX)
-# trap 'rm -rf "$BUILDDIR"' EXIT
+trap 'rm -rf "$BUILDDIR"' EXIT
 
 # Clone repository
 cd $BUILDDIR
@@ -51,7 +56,7 @@ echo "packages: Cabal cabal-install" > cabal.project
 echo "INFO: commit $GITCOMMIT"
 echo "INFO: index-state: @$INDEXSTATE ($HUMANINDEXSTATE)"
 
-cabal-2.0 new-build --disable-tests --disable-benchmarks cabal-install:exe:cabal
+cabal-2.0 new-build --disable-tests --disable-benchmarks --index-state=@$INDEXSTATE cabal-install:exe:cabal
 
 # Packaging
 EXE=$(find dist-newstyle -type f -name cabal)

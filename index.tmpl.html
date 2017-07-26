@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
@@ -6,33 +5,42 @@
         <title>Futurice + Haskell</title>
     </head>
     <body>
-        <header>
-			<h1>Futurice + Haskell</h1>
-        </header>
-		<section>
-			<p>(Bleeding-edge) OSX builds for cabal-install.<p>
+        <div>
+            <h1>Futurice + Haskell</h1>
+        </div>
+        <div>
+            <p>(Bleeding-edge) OSX builds for cabal-install.</p>
 
-			<h2>Nightly Cabal builds</h2>
+            <h2>Occassional Cabal builds</h2>
 
             <p>
             <code>cabal</code> executables build from <a href="https://github.com/haskell/cabal"><code>master</code></a> branch.
-            Each file contains executable without <code>.xz</code> suffix.
+            These are useful if you want to try new, yet unreleased features. Or you need an already merged bug fix.
             </p>
 
-            <p>
-            The builds aren't triggered automatically. Ping me (<code>phadej</code> in various media) if you need recent build.
-            </p>
-
-			<ul>
+            <ul>
                 {{#cabal}}
                 <li><a href="files/{{name}}"><code>{{name}}</code></a> ({{size}}, <a href="files/{{name}}.sig">sig</a>)</li>
                 {{/cabal}}
-			</ul>
+            </ul>
 
-            <h2>Alex &amp; Happy</h2>
+            <p>
+            The date suffix indicates the <a href="http://cabal.readthedocs.io/en/latest/nix-local-build.html#cfg-field-index-state"><code>--index-state</code></a> used to build particular binary.
+            <em>Note:</em> Cabal won't accept it as is, you have to reformat it into proper ISO-8601 UTC timestamp.
+            </p>
 
-            There are no <code>Happy</code> nor <code>alex</code> binaries provided.
-            <code>cabal new-build</code> is able to install them on need.
+            <p>
+            To "install" some version and you feel lucky, use a script below (substitute another URL if needed).
+            If <code>https</code> isn't enough for you (security-wise), you probably know how to use <a href="https://www.gnupg.org/gph/en/manual/x135.html"><code>gpg --verify</code></a>.
+            </p>
+<pre>
+curl -L https://haskell.futurice.com/files/{{examplecabal}} | gunzip -c &gt; /usr/local/bin/cabal-head
+chmod a+x /usr/local/bin/cabal-head
+</pre>
+
+            <p>
+            The builds aren't triggered automatically or periodically, but fuzzily and manually. Ping me (<code>phadej</code> in various media) if you need a recent build.
+            </p>
 
             <h2>Signature</h2>
             <p>
@@ -41,7 +49,7 @@
 <pre>
 pub   4096R/B8BB0BA4 2015-02-11 [expires: 2019-02-11]
       Key fingerprint = 5AC8 9B37 47FF 9612 810F  909E EB79 05A7 B8BB 0BA4
-uid                  Oleg Grenrus <oleg.grenrus@iki.fi>
+uid                  Oleg Grenrus &lt;oleg.grenrus@iki.fi&gt;
 uid                  [jpeg image of size 12002]
 sub   4096R/74B96F94 2015-02-11 [expires: 2019-02-11]
 </pre>
@@ -50,6 +58,11 @@ sub   4096R/74B96F94 2015-02-11 [expires: 2019-02-11]
                     which is also <a href = "files/SHA256SUMS.sig">signed</a>.
             </p>
 
+            <h2>Alex &amp; Happy</h2>
+
+            There are no <code>happy</code> nor <code>alex</code> binaries provided.
+            <code>cabal new-build</code> is able to install them on need.
+
             <h2>Build environment</h2>
 
 <pre>
@@ -57,16 +70,110 @@ $ uname -a
 Darwin ... 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29 17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64
 </pre>
 
-            <h2>Travis</h2>
+            <h2>Travis-CI</h2>
 
-            TBD
+            <p>
+            With small modifications (see <a href="https://github.com/futurice/haskell-futurice-site/commit/3d9b40c6c61788589d3f0074e13007a9ae924c98">commit <code>3d9b40c6</code></a>)
+            it's possible to use HVR's <a href="https://github.com/hvr/multi-ghc-travis"><code>multi-ghc-travis</code></a> generated Travis scripts.
+            </p>
 
-		</section>
-		<hr />
-		</section>
-			<p>
-				<a href="http://futurice.com">futurice</a> &ndash; company sponsoring this site and related work.
-			</p>
-		</section>
+            <p>
+            <em>Note:</em>Run macOS-jobs only if you have a reason, for example C-bits in your package.
+            At the moment (2017-07-25) open-source OSX builds start very slowly.
+            (<a href="https://github.com/travis-ci/travis-ci/issues/7304#issuecomment-287591291">ref</a>).
+            </p>
+
+            <h2>A brief guide into new-build</h2>
+
+            <ol>
+                <li><b>Don't use</b> <code>cabal install</code>.</li>
+                <li><b>Use only</b> <code>cabal new-build</code>.</li>
+            </ol>
+
+            <h3>Example</h3>
+
+<p>
+First we clone a repository we want to tinker with
+</p>
+
+<pre>
+~ $ git clone https://github.com/haskell-servant/servant
+Cloning into 'servant'...
+...
+</pre>
+
+<p>Change to the cloned repository</p>
+
+<pre>
+~ $ cd servant
+</pre>
+
+<p>
+<a href="https://github.com/haskell-servant/servant">Servant</a> is a multi-package project, so it has a <a href="http://cabal.readthedocs.io/en/latest/nix-local-build.html#configuring-builds-with-cabal-project"><code>cabal.project</code></a> file:
+</p>
+
+<pre>
+~/servant master $ cat cabal.project
+packages:
+  servant/
+  servant-client/
+  servant-docs/
+  servant-foreign/
+  servant-server/
+  doc/tutorial/
+</pre>
+
+<p>
+For simple one-package projects, with <code>&lt;pkg&gt;.cabal</code> at the
+root of the repository, it's not required to have <code>cabal.project</code>.
+You may create one with <code>echo "packages: ." &gt; cabal.project</code>, if you want.
+</p>
+
+<p>Now we can build the whole project</p>
+
+<pre>
+~/servant master $ cabal new-build all
+Resolving dependencies...
+Build profile: -w ghc-8.2.1 -O1
+In order, the following will be built (use -v for more details):
+ - servant-0.11 (lib:servant) (first run)
+ - servant-server-0.11 (lib:servant-server, exe:greet) (first run)
+ - servant-foreign-0.10.1 (lib) (first run)
+ - servant-docs-0.11 (lib) (first run)
+ - servant-client-0.11 (lib) (first run)
+ - servant-js-0.9.3 (lib) (requires build)
+ - servant-docs-0.11 (exe:greet-docs) (first run)
+ - tutorial-0.10 (lib) (first run)
+</pre>
+
+<p>
+You will probably see a longer list of "the following will be built".
+I have a short list, because <code>cabal new-build</code> have already built and
+cached dependencies for me, when I was working on other projects.
+</p>
+
+<p>
+The <code>all</code> keyword asks cabal to build all components.
+We can however ask for specific one, for example:
+</p>
+
+<pre>
+~/servant master % cabal new-build servant:doctests
+Resolving dependencies...
+Build profile: -w ghc-8.2.1 -O1
+In order, the following will be built (use -v for more details):
+ - servant-0.11 (test:doctests) (first run)
+</pre>
+
+There are also <code>new-test</code>, <code>new-repl</code> and bunch of
+<a href="http://cabal.readthedocs.io/en/latest/nix-local-build.html#commands">other <code>new-</code> commands</a>. Happy hacking!
+
+        </div>
+        <hr />
+        <div>
+            <p>
+                <a href="http://futurice.com">Futurice</a> &ndash; company sponsoring running this site and related work.
+            </p>
+        </div>
     </body>
 </html>
