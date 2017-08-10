@@ -3,6 +3,7 @@
 site :
 	cabal new-build
 	`find dist-newstyle -type f -name generate-site`
+	@echo "file://`pwd`/site/index.html"
 
 venv :
 	virtualenv --python=python3.5 venv
