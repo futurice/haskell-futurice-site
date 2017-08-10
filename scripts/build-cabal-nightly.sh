@@ -44,7 +44,7 @@ trap 'rm -rf "$BUILDDIR"' EXIT
 
 # Clone repository
 cd $BUILDDIR
-git clone --depth=50 https://github.com/haskell/cabal cabal
+git clone --depth=50 --no-single-branch https://github.com/haskell/cabal cabal
 cd cabal
 git fetch origin $GITCOMMIT
 git checkout -qf FETCH_HEAD
