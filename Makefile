@@ -2,7 +2,7 @@
 
 site :
 	cabal new-build
-	`find dist-newstyle -type f -name generate-site`
+	`find dist-newstyle -type f -name generate-site | head -n 1`
 	@echo "file://`pwd`/site/index.html"
 
 venv :
@@ -14,6 +14,5 @@ pull :
 
 push :
 	(. ./venv/bin/activate; \
-	aws s3 --profile haskell.futurice.com sync site \
-    s3://haskell.futurice.com)
-
+	aws s3 --profile haskell-futurice-com sync site \
+	s3://haskell-futurice-com)

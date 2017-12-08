@@ -9,7 +9,7 @@ maintainer:          Oleg Grenrus <oleg.grenrus@iki.fi>
 category:            Development
 build-type:          Simple
 cabal-version:       >=2.0
-tested-with:         GHC == 8.2.1
+tested-with:         GHC==8.2.2
 
 executable generate-site
   main-is:             Site.hs

@@ -9,9 +9,63 @@
             <h1>Futurice + Haskell</h1>
         </div>
         <div>
-            <p>(Bleeding-edge) OSX builds for cabal-install.</p>
+            <p>macOS (OSX) multi-GHC installer and (bleeding-edge) builds for cabal-install.</p>
 
-            <h2>Occassional Cabal builds</h2>
+            <h2 id="haskell-on-macos">haskell-on-macos.py</h2>
+
+            <p>
+            We made <a href="haskell-on-macos.py">a small Python 3 script, <code>haskell-on-macos.py</code>,</a>
+            to install multiple GHC versions on macOS.
+            It installs multiple GHC versions with the same file-system layout as packages
+            from <a href="https://launchpad.net/~hvr/+archive/ubuntu/ghc">HVR PPA</a>.
+            Synopsis usage:
+            </p>
+
+<pre>
+brew install python3
+./haskell-on-macos.py --make-dirs --paths.d --ghc-alias=8.2.2 --cabal-alias=head install ghc-8.0.2 ghc-8.2.2 cabal-install-head
+cabal new-build -w ghc-8.2.2 all
+</pre>
+
+            <p>
+            The script is written using Python 3, so you need to install it, for example using <a href="https://brew.sh/">Homebrew</a>.
+            After that you can run the script to install <code>ghc-8.0.2</code>, <code>ghc-8.2.2</code> and <code>cabal-install-head</code> (arguments),
+            creating a <code>cabal</code> link to <code>cabal-head</code> (<code>--cabal-alias</code>),
+            a <code>ghc</code> link to <code>ghc-8.2.2</code> (<code>--ghc-alias</code>),
+            making needing directories (<code>--make-dirs</code>)
+            and creating <code>/etc/paths.d/ghc</code> file to adjust <code>$PATH</code> automatically (<code>--paths.d</code>).
+            See </code>--help</code> for more information.
+            <em>Note:</em>You will need to restart a shell (terminal) to re-adjust a <code>$PATH</code> using <code>/etc/paths.d</code> mechanism.
+            After this you can use <code>cabal new-build</code>!.
+            </p>
+
+            <p>
+            Report issues <a href="https://github.com/futurice/haskell-futurice-site">to tracker on GitHub</a>.
+            </p>
+
+            <p>You can download the script using cURL and pipe it into <code>python3</code> too, for example:
+            </p>
+<pre>
+curl -sL https://haskell.futurice.com/haskell-on-macos.py | python3 - -h
+curl -sL https://haskell.futurice.com/haskell-on-macos.py | python3 - --make-dirs --paths.d --ghc-alias=8.2.2 --cabal-alias=head install ghc-8.0.2 ghc-8.2.2 cabal-install-head
+</pre>
+
+            <p>There are other ways to install GHC and cabal on macOS. These might suit your needs better, especially if you don't need multiple GHC or cabal-install HEAD.
+            <ul>
+                <li>
+                Homebrew <a href="http://formulae.brew.sh/formula/ghc">GHC</a>
+                and <a href="http://formulae.brew.sh/formula/cabal-install">cabal-install</a> formulae.
+                <em>Note:</em> At the moment (2017-12-09) there aren't older GHC available, also cabal-install-head is made from <code>2.0</code>, not <code>master</code>-branch.
+                </li>
+                <li>
+                <a href="https://www.haskell.org/platform/mac.html">Haskell Platform</a>. It also doesn't (easily?) support multiple GHC, neither get you cabal-install HEAD.
+                </li>
+                <li>
+                <a href="https://docs.haskellstack.org/en/stable/install_and_upgrade/">Stack</a> can install GHC for you, but their use with <code>cabal new-build</code> is not trivial.
+                </li>
+            </ul>
+
+            <h2 id="cabal-install-head">Occassional Cabal builds</h2>
 
             <p>
             <code>cabal</code> executables build from <a href="https://github.com/haskell/cabal"><code>master</code></a> branch.
@@ -73,13 +127,12 @@ Darwin ... 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29 17:56:20 PDT 2016; ro
             <h2>Travis-CI</h2>
 
             <p>
-            With small modifications (see <a href="https://github.com/futurice/haskell-futurice-site/commit/3d9b40c6c61788589d3f0074e13007a9ae924c98">commit <code>3d9b40c6</code></a>)
-            it's possible to use HVR's <a href="https://github.com/hvr/multi-ghc-travis"><code>multi-ghc-travis</code></a> generated Travis scripts.
+            HVR's <a href="https://github.com/hvr/multi-ghc-travis"><code>multi-ghc-travis</code></a> uses <code>haskell-on-macos.py</code> to generate macOS (OSX) build jobs in Travis scripts.
             </p>
 
             <p>
             <em>Note:</em>Run macOS-jobs only if you have a reason, for example C-bits in your package.
-            At the moment (2017-07-25) open-source OSX builds start very slowly.
+            At the moment (2017-07-25) open-source macOS (OSX) builds start very slowly.
             (<a href="https://github.com/travis-ci/travis-ci/issues/7304#issuecomment-287591291">ref</a>).
             </p>
 

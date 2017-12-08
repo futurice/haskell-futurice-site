@@ -36,7 +36,12 @@ gpgKey = "5AC8 9B37 47FF 9612 810F  909E EB79 05A7 B8BB 0BA4"
 
 main :: IO ()
 main = shakeArgs shakeOptions $ do
-    want ["site/index.html", "site/error.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig"]
+    want ["site/index.html", "site/error.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig", "site/haskell-on-macos.py"]
+
+    "site/haskell-on-macos.py" %> \out -> do
+        let src = "scripts/haskell-on-macos.py"
+        need [src]
+        copyFile' src out
 
     "site/index.html" %> \out -> do
         need ["index.tmpl.html", "site/files/SHA256SUMS", "site/files/SHA256SUMS.sig"]
