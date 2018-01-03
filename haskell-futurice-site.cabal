@@ -1,6 +1,8 @@
 name:                haskell-futurice-site
 version:             0
 synopsis:            Script generator for Futurice + Haskell site
+description:
+  This script generates the haskell.futurice.com site
 homepage:            https://github.com/futurice/haskell-futurice-site
 license:             BSD3
 license-file:        LICENSE
@@ -10,6 +12,10 @@ category:            Development
 build-type:          Simple
 cabal-version:       >=2.0
 tested-with:         GHC==8.2.2
+
+source-repository head
+  type: git
+  location: https://github.com/futurice/haskell-futurice-site
 
 executable generate-site
   main-is:             Site.hs
