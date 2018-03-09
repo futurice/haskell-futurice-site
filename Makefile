@@ -1,7 +1,7 @@
 .PHONY : site
 
 site :
-	cabal new-build
+	cabal new-build -w ghc-8.4.1
 	`find dist-newstyle -type f -name generate-site | head -n 1`
 	@echo "file://`pwd`/site/index.html"
 
