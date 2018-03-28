@@ -235,8 +235,8 @@ aliases = ["ghc", "runghc", "ghci", "ghc-pkg", "haddock-ghc"]
 cabals = [
     {
         "version": "head",
-        "url": "https://haskell.futurice.com/files/cabal-c219cd3f31c8e4e4bc71f93bbcd4de87830a986d-20180309-090233.xz",
-        "checksum": "deffde9575195781cd52d7bcf64145b3d5e3de0276d7f14d38c3b65237d29801",
+        "url": "https://haskell.futurice.com/files/cabal-457ebb8aff13e86e8928f301132f14ccaa23c28f-20180328-182545.xz",
+        "checksum": "3ac30603f34780342bc065357efc730a0be24cd021f23b382d50a8eec55d3fd6",
     },
 ]
 
