@@ -23,8 +23,8 @@ OUTPUTDIR=$3
 HUMANINDEXSTATE=$(TZ=UTC date -r ${INDEXSTATE} +"%Y%m%d-%H%M%S")
 
 # Check versions
-if [ ! $(ghc --numeric-version) = "8.2.1" ]; then
-  die "Requires GHC 8.2.1. In path: $(ghc --version)"
+if [ ! $(ghc-8.2.2 --numeric-version) = "8.2.2" ]; then
+  die "Requires GHC 8.2.2. In path: $(ghc --version)"
 fi
 
 # TODO: official release might have different tag. Use it when done.
@@ -56,7 +56,7 @@ echo "packages: Cabal cabal-install" > cabal.project
 echo "INFO: commit $GITCOMMIT"
 echo "INFO: index-state: @$INDEXSTATE ($HUMANINDEXSTATE)"
 
-cabal-2.0 new-build --disable-tests --disable-benchmarks --index-state=@$INDEXSTATE cabal-install:exe:cabal
+cabal-2.0 new-build -w ghc-8.2.2 --disable-tests --disable-benchmarks --index-state=@$INDEXSTATE cabal-install:exe:cabal
 
 # Packaging
 EXE=$(find dist-newstyle -type f -name cabal)
