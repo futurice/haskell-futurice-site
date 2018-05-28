@@ -5,7 +5,7 @@
 # Author:             Oleg Grenrus <oleg.grenrus@iki.fi>
 # SPDX-Identifier-Id: BSD-3-Clause
 #
-# Copyright (c) 2017 Futurice Oy
+# Copyright (c) 2017-2018 Futurice Oy
 #
 # All rights reserved.
 #
@@ -227,6 +227,11 @@ ghcs = [
         "url": "https://downloads.haskell.org/~ghc/8.4.1/ghc-8.4.1-x86_64-apple-darwin.tar.xz",
         "checksum": "d774e39f3a0105843efd06709b214ee332c30203e6c5902dd6ed45e36285f9b7",
     },
+    {
+        "version": "8.4.2",
+        "url": "https://downloads.haskell.org/~ghc/8.4.2/ghc-8.4.2-x86_64-apple-darwin.tar.xz",
+        "checksum": "87469222042b9ac23f9db216a8d4e5107297bdbbb99df71eb4d9e7208455def2",
+    },
 ]
 
 # GHC aliases
@@ -235,8 +240,8 @@ aliases = ["ghc", "runghc", "ghci", "ghc-pkg", "haddock-ghc"]
 cabals = [
     {
         "version": "head",
-        "url": "https://haskell.futurice.com/files/cabal-457ebb8aff13e86e8928f301132f14ccaa23c28f-20180328-182545.xz",
-        "checksum": "3ac30603f34780342bc065357efc730a0be24cd021f23b382d50a8eec55d3fd6",
+        "url": "https://haskell.futurice.com/files/cabal-6a7db57a42faabb8b98ad1fcaa6c7f17ebb2b39b-20180528-051527.xz",
+        "checksum": "",
     },
 ]
 
