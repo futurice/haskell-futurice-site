@@ -232,6 +232,11 @@ ghcs = [
         "url": "https://downloads.haskell.org/~ghc/8.4.2/ghc-8.4.2-x86_64-apple-darwin.tar.xz",
         "checksum": "87469222042b9ac23f9db216a8d4e5107297bdbbb99df71eb4d9e7208455def2",
     },
+    {
+        "version": "8.4.3",
+        "url": "https://downloads.haskell.org/~ghc/8.4.3/ghc-8.4.3-x86_64-apple-darwin.tar.xz",
+        "checksum": "af0b455f6c46b9802b4b48dad996619cfa27cc6e2bf2ce5532387b4a8c00aa64",
+    },
 ]
 
 # GHC aliases
