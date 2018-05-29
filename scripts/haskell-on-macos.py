@@ -246,7 +246,7 @@ cabals = [
     {
         "version": "head",
         "url": "https://haskell.futurice.com/files/cabal-6a7db57a42faabb8b98ad1fcaa6c7f17ebb2b39b-20180528-051527.xz",
-        "checksum": "",
+        "checksum": "0edae784dd102349312625ffbcdcf93bd29b6aaa9ba12db0642e53cdfb5dd239",
     },
 ]
 
