@@ -11,7 +11,7 @@ author:              Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:          Oleg Grenrus <oleg.grenrus@iki.fi>
 category:            Development
 build-type:          Simple
-tested-with:         GHC==8.2.2, GHC==8.4.1
+tested-with:         GHC==8.2.2, GHC==8.4.3
 
 source-repository head
   type: git
