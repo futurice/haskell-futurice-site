@@ -67,8 +67,8 @@ class Fluffy:
         self.rules = {}
         self.ctx = Context(self)
 
-    def build(self, target):
-        self.ctx.build(target)
+    def build(self, target, **kwargs):
+        self.ctx.build(target, **kwargs)
 
     def rule(self, target, phony=False):
         def rule_decorator(f):
@@ -120,7 +120,7 @@ class Context:
     def dry(self):
         return self.__dry__
 
-    def build(self, target):
+    def build(self, target, force=False):
         # If we build this rule already, silently return
         if target in self.__done__:
             return
@@ -128,7 +128,7 @@ class Context:
         # check if we know how to build the target
         if target not in self.fluffy.rules:
             # if we don't know, but target exists, it's ok.
-            if not self.__force__ and os.path.isabs(target) and os.path.exists(target):
+            if not (self.__force__ or force) and os.path.isabs(target) and os.path.exists(target):
                 self.info("DONE", target, "no rule, but exists in the file system")
                 self.__done__.add(target)
                 return
@@ -141,7 +141,7 @@ class Context:
         rule = self.fluffy.rules[target]
 
         # Check if the artifact is present for non-phony rules
-        if not self.__force__ and not rule.phony and os.path.exists(target):
+        if not (self.__force__ or force) and not rule.phony and os.path.exists(target):
             self.info("DONE", target, "exists in the file system")
             self.__done__.add(target)
             return
@@ -182,7 +182,7 @@ class Context:
 
     def link(self, source, dest):
         self.info("LINK", dest)
-        self.run(["ln", "-s", source, dest], check=True)
+        self.run(["ln", "-sf", source, dest], check=True)
 
     def mkdir(self, dir):
         self.info("MKDIR", dir)
@@ -255,6 +255,16 @@ aliases = ["ghc", "runghc", "ghci", "ghc-pkg", "haddock-ghc"]
 cabals = [
     {
         "version": "head",
+        "url": "https://haskell.futurice.com/files/cabal-ddec9b69e6a63c099bb550fa78ff3721ef3b4586-20181126-013621.xz",
+        "checksum": "971f2d15f27a671af1b0cb767573516a87c251739aa955780122a9168ad83864",
+    },
+    {
+        "version": "2.4.1.0",
+        "url": "https://haskell.futurice.com/files/cabal-5e65672622d7f4edcc6e5ccecc50ce78c2786d22-20181126-011430.xz",
+        "checksum": "663ead904afa4fa03e55064384467db40245c4329d4015a39b3d4ce2ac848a4b",
+    },
+    {
+        "version": "2.4.0.0",
         "url": "https://haskell.futurice.com/files/cabal-0ba16f5c98ad612920f79e60d9105866096fb2e5-20180919-152709.xz",
         "checksum": "228585fd90773a7c133124395cac7e8ee29c079de481ae445078396bb6646334",
     },
@@ -469,9 +479,9 @@ def main():
 
     def executeAliases():
         if res.cabal_alias is not None:
-            installer.build(CABALALIAS)
+            installer.build(CABALALIAS, force=True)
         if res.ghc_alias is not None:
-            installer.build(GHCALIAS)
+            installer.build(GHCALIAS, force=True)
 
     def executePathsD():
         if res.paths_d:

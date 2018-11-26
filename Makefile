@@ -2,7 +2,7 @@
 
 site :
 	cabal new-build -w ghc-8.4.4
-	`find dist-newstyle -type f -name generate-site | head -n 1`
+	$$(cabal-plan list-bin generate-site)
 	@echo "file://`pwd`/site/index.html"
 
 venv :
