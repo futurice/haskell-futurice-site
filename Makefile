@@ -6,7 +6,7 @@ site :
 	@echo "file://`pwd`/site/index.html"
 
 venv :
-	virtualenv --python=python3.5 venv
+	virtualenv --python=python3.7 venv
 	(. ./venv/bin/activate; pip install awscli)
 
 pull :

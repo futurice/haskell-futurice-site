@@ -1,26 +1,28 @@
-{-# LANGUAGE RecordWildCards, OverloadedStrings, ScopedTypeVariables #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE RecordWildCards     #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 module Main (main) where
 
-import Control.Monad.IO.Class (liftIO)
-import Data.Aeson (ToJSON (..), object, (.=))
-import Data.Foldable (traverse_)
-import Data.List (isPrefixOf, sortOn)
-import Data.Maybe (listToMaybe)
-import Data.Ord (Down (..))
-import Data.Traversable (for)
-import System.Directory (getFileSize)
-import System.IO (hPutStrLn, stderr)
-import Text.Printf (printf)
+import           Control.Monad.IO.Class        (liftIO)
+import           Data.Aeson                    (ToJSON (..), object, (.=))
+import           Data.Foldable                 (traverse_)
+import           Data.List                     (isPrefixOf, sortOn)
+import           Data.Maybe                    (listToMaybe)
+import           Data.Ord                      (Down (..))
+import           Data.Traversable              (for)
+import           System.Directory              (getFileSize)
+import           System.IO                     (hPutStrLn, stderr)
+import           Text.Printf                   (printf)
 
-import qualified Data.ByteString.Lazy as LBS
-import qualified Data.Text.Lazy.IO as LT
-import qualified Text.Microstache as M
-import qualified Text.Regex.Applicative as RE
+import qualified Data.ByteString.Lazy          as LBS
+import qualified Data.Text.Lazy.IO             as LT
+import qualified Text.Microstache              as M
+import qualified Text.Regex.Applicative        as RE
 import qualified Text.Regex.Applicative.Common as RE
 
-import Development.Shake
+import           Development.Shake
 --import Development.Shake.Command
-import Development.Shake.FilePath
+import           Development.Shake.FilePath
 --import Development.Shake.Util
 
 -------------------------------------------------------------------------------
@@ -28,7 +30,7 @@ import Development.Shake.FilePath
 -------------------------------------------------------------------------------
 
 gpgKey :: String
-gpgKey = "5AC8 9B37 47FF 9612 810F  909E EB79 05A7 B8BB 0BA4"
+gpgKey = "7E8A 0D73 F61F 0006 697A  1AFB D255 EF35 7806 99D5"
 
 -------------------------------------------------------------------------------
 -- Main
@@ -87,7 +89,7 @@ main = shakeArgs shakeOptions $ do
 
         let relativeXzs = [ "./" ++ f ++ ".xz" | f <- files ]
 
-        Stdout sums <- cmd ("sha256sum" : relativeXzs) (Cwd "site/files")
+        Stdout sums <- cmd (["shasum", "-a", "256"] ++ relativeXzs) (Cwd "site/files")
         liftIO $ LBS.writeFile out sums
 
 -------------------------------------------------------------------------------
@@ -134,14 +136,14 @@ fileType f
     | otherwise              = Other
 
 data File = File
-    { haName     :: String
-    , haType     :: FileType
-    , haSize     :: Integer
+    { haName :: String
+    , haType :: FileType
+    , haSize :: Integer
     }
 
 instance ToJSON FileType where
-    toJSON Cabal     = "cabal"
-    toJSON Other     = "other"
+    toJSON Cabal = "cabal"
+    toJSON Other = "other"
 
 instance ToJSON File where
     toJSON File {..} = object
