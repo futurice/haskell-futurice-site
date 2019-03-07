@@ -89,7 +89,7 @@ main = shakeArgs shakeOptions $ do
 
         let relativeXzs = [ "./" ++ f ++ ".xz" | f <- files ]
 
-        Stdout sums <- cmd (["shasum", "-a", "256"] <> relativeXzs) (Cwd "site/files")
+        Stdout sums <- cmd (["shasum", "-a", "256"] ++ relativeXzs) (Cwd "site/files")
         liftIO $ LBS.writeFile out sums
 
 -------------------------------------------------------------------------------
