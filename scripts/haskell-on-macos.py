@@ -290,7 +290,7 @@ cabals = [
     },
     {
         "version": "3.0.0.0",
-        "url": "https://haskell.futurice.com/files/cabal-f2b2ab7c11541fecef81bd9f954d7ff33002c485-20190827-103021.xz",
+        "url": "https://haskell.futurice.com/files/cabal-f2b2ab7c11541fecef81bd9f954d7ff33002c485-20190827-113809.xz",
         "checksum": "e4b078fa88f1d911a25dd09b098b4a18fdcb8b060b682c2aee67b6d753277b4e",
     },
 ]
