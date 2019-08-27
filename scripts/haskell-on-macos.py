@@ -288,6 +288,11 @@ cabals = [
         "url": "https://haskell.futurice.com/files/cabal-0ba16f5c98ad612920f79e60d9105866096fb2e5-20180919-152709.xz",
         "checksum": "228585fd90773a7c133124395cac7e8ee29c079de481ae445078396bb6646334",
     },
+    {
+        "version": "3.0.0.0",
+        "url": "https://haskell.futurice.com/files/cabal-f2b2ab7c11541fecef81bd9f954d7ff33002c485-20190827-103021.xz",
+        "checksum": "fb6b33e3deaee886143cdffc35375a5c1243939a6ee23d64f6cc4a9e34cb0d86",
+    },
 ]
 
 def main():
