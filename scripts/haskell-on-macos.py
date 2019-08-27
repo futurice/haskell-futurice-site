@@ -279,6 +279,11 @@ cabals = [
         "checksum": "971f2d15f27a671af1b0cb767573516a87c251739aa955780122a9168ad83864",
     },
     {
+        "version": "3.0.0.0",
+        "url": "https://haskell.futurice.com/files/cabal-f2b2ab7c11541fecef81bd9f954d7ff33002c485-20190827-113809.xz",
+        "checksum": "e4b078fa88f1d911a25dd09b098b4a18fdcb8b060b682c2aee67b6d753277b4e",
+    },
+    {
         "version": "2.4.1.0",
         "url": "https://haskell.futurice.com/files/cabal-5e65672622d7f4edcc6e5ccecc50ce78c2786d22-20181126-011430.xz",
         "checksum": "663ead904afa4fa03e55064384467db40245c4329d4015a39b3d4ce2ac848a4b",
@@ -287,11 +292,6 @@ cabals = [
         "version": "2.4.0.0",
         "url": "https://haskell.futurice.com/files/cabal-0ba16f5c98ad612920f79e60d9105866096fb2e5-20180919-152709.xz",
         "checksum": "228585fd90773a7c133124395cac7e8ee29c079de481ae445078396bb6646334",
-    },
-    {
-        "version": "3.0.0.0",
-        "url": "https://haskell.futurice.com/files/cabal-f2b2ab7c11541fecef81bd9f954d7ff33002c485-20190827-113809.xz",
-        "checksum": "e4b078fa88f1d911a25dd09b098b4a18fdcb8b060b682c2aee67b6d753277b4e",
     },
 ]
 
