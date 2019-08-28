@@ -262,6 +262,11 @@ ghcs = [
         "url": "https://downloads.haskell.org/~ghc/8.6.5/ghc-8.6.5-x86_64-apple-darwin.tar.xz",
         "checksum": "dfc1bdb1d303a87a8552aa17f5b080e61351f2823c2b99071ec23d0837422169",
     },
+    {
+        "version": "8.8.1",
+        "url": "https://downloads.haskell.org/ghc/8.8.1/ghc-8.8.1-x86_64-apple-darwin.tar.xz",
+        "checksum": "38c8917b47c31bedf58c9305dfca3abe198d8d35570366f0773c4e2948bd8abe",
+    },
 ]
 
 # GHC aliases
@@ -272,6 +277,11 @@ cabals = [
         "version": "head",
         "url": "https://haskell.futurice.com/files/cabal-ddec9b69e6a63c099bb550fa78ff3721ef3b4586-20181126-013621.xz",
         "checksum": "971f2d15f27a671af1b0cb767573516a87c251739aa955780122a9168ad83864",
+    },
+    {
+        "version": "3.0.0.0",
+        "url": "https://haskell.futurice.com/files/cabal-f2b2ab7c11541fecef81bd9f954d7ff33002c485-20190827-113809.xz",
+        "checksum": "e4b078fa88f1d911a25dd09b098b4a18fdcb8b060b682c2aee67b6d753277b4e",
     },
     {
         "version": "2.4.1.0",
