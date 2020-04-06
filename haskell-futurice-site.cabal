@@ -8,7 +8,7 @@ homepage:            https://github.com/futurice/haskell-futurice-site
 license:             BSD3
 license-file:        LICENSE
 author:              Oleg Grenrus <oleg.grenrus@iki.fi>
-maintainer:          Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:          Toni Okuogume <toni.okuogume@futurice.com>
 category:            Development
 build-type:          Simple
 tested-with:         GHC==8.2.2, GHC==8.4.4, GHC==8.6.5
@@ -30,5 +30,5 @@ executable generate-site
     microstache       >=1.0.1.1    && <1.1,
     process           >=1.6.1.0    && <1.7,
     regex-applicative >=0.3.3      && <0.4,
-    shake             >=0.16.3     && <0.17,
+    shake             >=0.16.3     && <0.19,
     text              >=1.2.2.2    && <1.3

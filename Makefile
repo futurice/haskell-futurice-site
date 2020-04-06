@@ -1,7 +1,7 @@
 .PHONY : site
 
 site :
-	cabal new-build -w ghc-8.4.4
+	cabal new-build -w ghc-8.6.5
 	$$(cabal-plan list-bin generate-site)
 	@echo "file://`pwd`/site/index.html"
 
@@ -14,5 +14,5 @@ pull :
 
 push :
 	(. ./venv/bin/activate; \
-	aws s3 --profile haskell-futurice-com sync site \
+	aws s3 sync site \
 	s3://haskell-futurice-com)

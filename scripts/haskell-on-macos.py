@@ -294,6 +294,11 @@ cabals = [
         "checksum": "971f2d15f27a671af1b0cb767573516a87c251739aa955780122a9168ad83864",
     },
     {
+        "version": "3.2.0.0",
+        "url": "https://haskell.futurice.com/files/cabal-329ebb1ad4c132e26b99e128450f9dafa1144133-20200405-161907.xz",
+        "checksum": "bd8b195fd380b72896037c97d41ceaeb069cfdd1a23ee9ff55b2dc970bcc144e",
+    },
+    {
         "version": "3.0.0.0",
         "url": "https://haskell.futurice.com/files/cabal-f2b2ab7c11541fecef81bd9f954d7ff33002c485-20190827-113809.xz",
         "checksum": "e4b078fa88f1d911a25dd09b098b4a18fdcb8b060b682c2aee67b6d753277b4e",
