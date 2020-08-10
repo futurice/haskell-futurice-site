@@ -273,14 +273,14 @@ ghcs = [
         "checksum": "25c5c1a70036abf3f22b2b19c10d26adfdb08e8f8574f89d4b2042de5947f990",
     },
     {
-        "version": "8.8.3",
-        "url": "https://downloads.haskell.org/ghc/8.8.3/ghc-8.8.3-x86_64-apple-darwin.tar.xz",
-        "checksum": "7016de90dd226b06fc79d0759c5d4c83c2ab01d8c678905442c28bd948dbb782",
+        "version": "8.8.4",
+        "url": "https://downloads.haskell.org/~ghc/8.8.4/ghc-8.8.4-x86_64-apple-darwin.tar.xz",
+        "checksum": "e80a789e9d8cfb41dd87f3284b75432427c4461c1731d220d04ead8733ccdb5e",
     },
     {
-        "version": "8.10.1",
-        "url": "https://downloads.haskell.org/~ghc/8.10.1/ghc-8.10.1-x86_64-apple-darwin.tar.xz",
-        "checksum": "65b1ca361093de4804a7e40b3e68178e1ef720f84f743641ec8d95e56a45b3a8",
+        "version": "8.10.2",
+        "url": "https://downloads.haskell.org/~ghc/8.10.2/ghc-8.10.2-x86_64-apple-darwin.tar.xz",
+        "checksum": "edb772b00c0d7f18bb56ad27765162ee09c508104d40f82128c9114a02f6cfc2",
     },
 ]
 
