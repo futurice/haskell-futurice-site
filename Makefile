@@ -1,7 +1,7 @@
 .PHONY : site
 
 site :
-	cabal new-build -w ghc-8.6.5
+	cabal new-build -w ghc-8.8.4
 	$$(cabal-plan list-bin generate-site)
 	@echo "file://`pwd`/site/index.html"
 
